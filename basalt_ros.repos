@@ -7,7 +7,3 @@ repositories:
     type: git
     url: https://github.com/berndpfrommer/basalt_vio_msgs.git
     version: master
-  px4_msgs:
-    type: git
-    url: https://github.com/PX4/px4_msgs
-    version: 147e77b
