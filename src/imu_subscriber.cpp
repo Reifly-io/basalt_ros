@@ -165,7 +165,9 @@ void IMUSubscriber::callback_combined(const ImuMsgConstPtr msg)
 
 void IMUSubscriber::callback_px4_combined(const CombinedImuMsgConstPtr msg)
 {
-  const double t = stamp_to_float(msg);
+  const double t = static_cast<double>(
+                     msg->timestamp + msg->accelerometer_timestamp_relative) *
+                   1e3;
   // make data packet in basalt format
   BasaltImuData::Ptr data(new BasaltImuData());
   data->t_ns = t * 1e6;
