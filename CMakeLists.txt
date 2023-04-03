@@ -27,6 +27,7 @@ find_package(cereal REQUIRED)
 find_package(Sophus REQUIRED)
 find_package(basalt-headers REQUIRED)
 find_package(basalt REQUIRED)
+find_package(px4_msgs REQUIRED)
 
 find_package(realsense2 QUIET)  # optional
 
@@ -48,7 +49,8 @@ set(ROS2_DEPENDENCIES
   "tf2_ros"
   "basalt_vio_msgs"
   "cv_bridge"
-  "std_msgs")
+  "std_msgs"
+  "px4_msgs" )
 
 foreach(pkg ${ROS2_DEPENDENCIES})
   find_package(${pkg} REQUIRED)
@@ -129,7 +131,7 @@ add_library(vio_backend SHARED
   src/imu_publisher.cpp
   src/optical_flow_subscriber.cpp)
 
-target_link_libraries(vio_backend basalt::basalt Eigen3::Eigen TBB::tbb vio_utils)
+target_link_libraries(vio_backend basalt::basalt Eigen3::Eigen TBB::tbb vio_utils px4_msgs)
 ament_target_dependencies(vio_backend ${ROS2_DEPENDENCIES})
 target_include_directories(vio_backend PUBLIC include)
 

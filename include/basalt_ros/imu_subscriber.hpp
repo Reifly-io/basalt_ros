@@ -26,6 +26,8 @@
 
 #include "basalt_ros/basalt_types.hpp"
 
+#include "px4_msgs/msg/sensor_combined.hpp"
+
 namespace basalt_ros
 {
 class IMUSubscriber
@@ -33,9 +35,15 @@ class IMUSubscriber
 public:
   typedef sensor_msgs::msg::Imu ImuMsg;
   typedef std::shared_ptr<const ImuMsg> ImuMsgConstPtr;
+
+  typedef px4_msgs::msg::SensorCombined CombinedImuMsg;
+  typedef std::shared_ptr<const CombinedImuMsg> CombinedImuMsgConstPtr;
+  
   typedef tbb::concurrent_bounded_queue<std::shared_ptr<BasaltImuData>>
     ImuDataQueue;
   typedef std::shared_ptr<ImuDataQueue> ImuDataQueuePtr;
+
+  
 
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   IMUSubscriber(rclcpp::Node * node, const std::vector<std::string> & topics);
@@ -50,13 +58,18 @@ private:
   void callback_gyro(const ImuMsgConstPtr msg);
   void callback_accel(const ImuMsgConstPtr msg);
   void callback_combined(const ImuMsgConstPtr msg);
+  void callback_px4_combined(const CombinedImuMsgConstPtr msg);
+  
   // ----- variables --
   std::shared_ptr<rclcpp::Node> node_;
   rclcpp::Subscription<ImuMsg>::SharedPtr gyroSub_;
   rclcpp::Subscription<ImuMsg>::SharedPtr accelSub_;
   rclcpp::Subscription<ImuMsg>::SharedPtr combinedSub_;
+  rclcpp::Subscription<CombinedImuMsg>::SharedPtr px4CombinedSub_;
   std::list<ImuMsgConstPtr> gyroQueue_;
   ImuMsgConstPtr prevAccel_;
+  [[maybe_unused]] CombinedImuMsgConstPtr prevPX4Accel_;
+
   ImuDataQueue * queue_{nullptr};
   int64_t max_q_{0};
   uint64_t combinedFramesReceived_{0};
