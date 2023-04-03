@@ -25,7 +25,6 @@
 #include <vector>
 
 #include "basalt_ros/basalt_types.hpp"
-
 #include "px4_msgs/msg/sensor_combined.hpp"
 
 namespace basalt_ros
@@ -38,12 +37,10 @@ public:
 
   typedef px4_msgs::msg::SensorCombined CombinedImuMsg;
   typedef std::shared_ptr<const CombinedImuMsg> CombinedImuMsgConstPtr;
-  
+
   typedef tbb::concurrent_bounded_queue<std::shared_ptr<BasaltImuData>>
     ImuDataQueue;
   typedef std::shared_ptr<ImuDataQueue> ImuDataQueuePtr;
-
-  
 
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   IMUSubscriber(rclcpp::Node * node, const std::vector<std::string> & topics);
@@ -59,7 +56,7 @@ private:
   void callback_accel(const ImuMsgConstPtr msg);
   void callback_combined(const ImuMsgConstPtr msg);
   void callback_px4_combined(const CombinedImuMsgConstPtr msg);
-  
+
   // ----- variables --
   std::shared_ptr<rclcpp::Node> node_;
   rclcpp::Subscription<ImuMsg>::SharedPtr gyroSub_;
