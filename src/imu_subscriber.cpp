@@ -39,10 +39,10 @@ IMUSubscriber::IMUSubscriber(
       node_->get_logger(),
       "imu subscribing to topics: " << topics[0] << ", " << topics[1]);
   } else if (topics.size() == 1) {
-    combinedSub_ = node_->create_subscription<ImuMsg>(
+    combinedSub_ = node_->create_subscription<CombinedImuMsg>(
       // topics[0], rclcpp::SensorDataQoS(),
       topics[0], rclcpp::QoS(100),
-      std::bind(&IMUSubscriber::callback_combined, this, _1));
+      std::bind(&IMUSubscriber::callback_px4_combined, this, _1));
     RCLCPP_INFO_STREAM(
       node_->get_logger(), "imu subscribing to topic: " << topics[0]);
   } else {
@@ -171,8 +171,7 @@ void IMUSubscriber::callback_px4_combined(const CombinedImuMsgConstPtr msg)
   data->t_ns = t * 1e6;
   data->accel << msg->accelerometer_m_s2[0], msg->accelerometer_m_s2[1],
     msg->accelerometer_m_s2[2];
-  data->gyro << msg->gyro_rad[0], msg->gyro_rad[1],
-    msg->gyro_rad[2];
+  data->gyro << msg->gyro_rad[0], msg->gyro_rad[1], msg->gyro_rad[2];
   if (queue_) {
     if (!queue_->try_push(data)) {
       RCLCPP_WARN_STREAM(
@@ -182,6 +181,6 @@ void IMUSubscriber::callback_px4_combined(const CombinedImuMsgConstPtr msg)
     max_q_ = std::max(queue_->size(), max_q_);
   }
   printFrameRate();
-} 
+}
 
 }  // namespace basalt_ros
