@@ -139,7 +139,7 @@ void VIOPublisher::publish(const BasaltPoseVelBiasState::Ptr & data)
   msg_.twist.covariance = cov_;  // zero matrix
 
   pub_->publish(msg_);
-#if 0
+#if 1
     std::cout << "position: " << msg_.pose.pose.position.x << " "
               << msg_.pose.pose.position.y << " " << msg_.pose.pose.position.z
               << std::endl;
