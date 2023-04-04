@@ -27,7 +27,6 @@ find_package(cereal REQUIRED)
 find_package(Sophus REQUIRED)
 find_package(basalt-headers REQUIRED)
 find_package(basalt REQUIRED)
-find_package(px4_msgs REQUIRED)
 
 find_package(realsense2 QUIET)  # optional
 
