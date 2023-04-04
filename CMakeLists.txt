@@ -130,7 +130,7 @@ add_library(vio_backend SHARED
   src/imu_publisher.cpp
   src/optical_flow_subscriber.cpp)
 
-target_link_libraries(vio_backend basalt::basalt Eigen3::Eigen TBB::tbb vio_utils px4_msgs)
+target_link_libraries(vio_backend basalt::basalt Eigen3::Eigen TBB::tbb vio_utils)
 ament_target_dependencies(vio_backend ${ROS2_DEPENDENCIES})
 target_include_directories(vio_backend PUBLIC include)
 
