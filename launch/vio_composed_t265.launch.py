@@ -105,7 +105,7 @@ def generate_launch_description():
                   default_value=['/t265/accel/sample'],
                   description='accel topic'),
         LaunchArg('imu_topic',
-                  default_value=[''],
+                  default_value=['/fmu/out/sensor_combined'],
                   description='combined accel/gyro topic'),
         OpaqueFunction(function=launch_setup)
         ])
