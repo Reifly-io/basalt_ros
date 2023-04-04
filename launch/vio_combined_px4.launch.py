@@ -96,7 +96,7 @@ def generate_launch_description():
         LaunchArg('config_file', default_value=['px4_gazebo_vio_config.json'],
                   description='vio config file'),
         LaunchArg('flow_topic',
-                  default_value=[''],
+                  default_value=['optical_flow'],
                   description='optical flow topic'),
         LaunchArg('gyro_topic',
                   default_value=[''],
