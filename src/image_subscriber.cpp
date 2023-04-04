@@ -27,10 +27,11 @@ ImageSubscriber::ImageSubscriber(
   const std::string & topic_right)
 : node_(node)
 {
+  const rmw_qos_profile_t qos_profile = rmw_qos_profile_sensor_data;
   subs_.push_back(std::make_shared<message_filters::Subscriber<Image>>(
-    node_, topic_left, rclcpp::SensorDataQoS()));
+    node_, topic_left, qos_profile));
   subs_.push_back(std::make_shared<message_filters::Subscriber<Image>>(
-    node, topic_right, rclcpp::SensorDataQoS()));
+    node, topic_right, qos_profile));
   sync_ = std::make_shared<message_filters::TimeSynchronizer<Image, Image>>(
     *subs_[0], *subs_[1], 100);
   sync_->registerCallback(std::bind(&ImageSubscriber::callback, this, _1, _2));
