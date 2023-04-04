@@ -27,10 +27,10 @@ ImageSubscriber::ImageSubscriber(
   const std::string & topic_right)
 : node_(node)
 {
-  subs_.push_back(
-    std::make_shared<message_filters::Subscriber<Image>>(node_, topic_left));
-  subs_.push_back(
-    std::make_shared<message_filters::Subscriber<Image>>(node, topic_right));
+  subs_.push_back(std::make_shared<message_filters::Subscriber<Image>>(
+    node_, topic_left, rclcpp::SensorDataQoS()));
+  subs_.push_back(std::make_shared<message_filters::Subscriber<Image>>(
+    node, topic_right, rclcpp::SensorDataQoS()));
   sync_ = std::make_shared<message_filters::TimeSynchronizer<Image, Image>>(
     *subs_[0], *subs_[1], 100);
   sync_->registerCallback(std::bind(&ImageSubscriber::callback, this, _1, _2));
