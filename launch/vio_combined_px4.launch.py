@@ -86,10 +86,10 @@ def generate_launch_description():
     """Create simple node by calling opaque function."""
     return launch.LaunchDescription([
         LaunchArg('left_cam',
-                  default_value=['/stereo_camera/left/raw_image'],
+                  default_value=['/stereo_camera/left'],
                   description='name of left camera'),
         LaunchArg('right_cam',
-                  default_value=['/stereo_camera/left/raw_image'],
+                  default_value=['/stereo_camera/right'],
                   description='name of right camera'),
         LaunchArg('calib_file', default_value=['px4_gazebo_calib.json'],
                   description='camera calibration file'),
