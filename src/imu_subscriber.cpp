@@ -33,7 +33,7 @@ IMUSubscriber::IMUSubscriber(
       std::bind(&IMUSubscriber::callback_gyro, this, _1));
     accelSub_ = node_->create_subscription<ImuMsg>(
       //topics[1], rclcpp::SensorDataQoS(),
-      //topics[1], rclcpp::QoS(100),
+      topics[1], rclcpp::QoS(100),
       std::bind(&IMUSubscriber::callback_accel, this, _1));
     RCLCPP_INFO_STREAM(
       node_->get_logger(),
