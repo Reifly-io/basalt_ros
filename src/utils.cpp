@@ -52,18 +52,13 @@ void load_calib_and_config(
   const std::string calib_path =
     node->declare_parameter("calibration_file", "");
   load_calib(node, calib, calib_path);
+
   // load config
   config->optical_flow_skip_frames = 1;
   const std::string vioConfigFile =
     node->declare_parameter("vio_config_file", "");
   if (!vioConfigFile.empty()) {
     config->load(vioConfigFile);
-  }
-  // overwrite debug flags if requested
-  if (!node->has_parameter("debug_vio")) {
-    config->vio_debug = node->declare_parameter("debug_vio", false);
-  } else {
-    node->get_parameter("debug_vio", config->vio_debug);
   }
 }
 }  // namespace basalt_ros
