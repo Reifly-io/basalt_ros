@@ -40,8 +40,8 @@ IMUSubscriber::IMUSubscriber(
       "imu subscribing to topics: " << topics[0] << ", " << topics[1]);
   } else if (topics.size() == 1) {
     px4CombinedSub_ = node_->create_subscription<CombinedImuMsg>(
-      // topics[0], rclcpp::SensorDataQoS(),
-      topics[0], rclcpp::QoS(rclcpp::KeepLast(2000)),
+      topics[0], rclcpp::SensorDataQoS(),
+     // topics[0], rclcpp::QoS(rclcpp::KeepLast(2000)),
       std::bind(&IMUSubscriber::callback_px4_combined, this, _1));
     RCLCPP_INFO_STREAM(
       node_->get_logger(), "imu subscribing to topic: " << topics[0]);
