@@ -39,8 +39,15 @@ IMUSubscriber::IMUSubscriber(
       node_->get_logger(),
       "imu subscribing to topics: " << topics[0] << ", " << topics[1]);
   } else if (topics.size() == 1) {
+    const rmw_qos_profile_t qos_profile = rmw_qos_profile_sensor_data;
+
+    //example1.cpp
+    const auto qos = rclcpp::QoS(
+      rclcpp::QoSInitialization(qos_profile.history, qos_profile.depth),
+      qos_profile);
+
     px4CombinedSub_ = node_->create_subscription<CombinedImuMsg>(
-      topics[0], rclcpp::SensorDataQoS(),
+      topics[0], qos,
       //topics[0], rclcpp::QoS(rclcpp::KeepLast(2000)),
       std::bind(&IMUSubscriber::callback_px4_combined, this, _1));
     RCLCPP_INFO_STREAM(
