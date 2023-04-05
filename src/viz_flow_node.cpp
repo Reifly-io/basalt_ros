@@ -39,16 +39,16 @@ public:
   {
     sync_ = std::make_shared<Sync>(10);
     const auto qos = rmw_qos_profile_default;
-    const auto qos_profile_sensor_profile = rmw_qos_profile_sensor_data;
+    const auto qos_sensor_profile = rmw_qos_profile_sensor_data;
 
     imageSub_ = std::make_shared<message_filters::Subscriber<Image>>(
-      this, "left_image", rmw_qos_profile_default);
+      this, "left_image", qos_sensor_profile);
     flowSub_ = std::make_shared<message_filters::Subscriber<OptFlow>>(
       this, "optical_flow", qos);
     imagePub_ = image_transport::create_publisher(this, "flow_image", qos);
     sync_ = std::make_shared<Sync>(SyncPolicy(10), *imageSub_, *flowSub_);
     sync_->registerCallback(std::bind(&VizFlow::flowCallback, this, _1, _2));
-    drawTracks_ = this->declare_parameter<bool>("show_tracks", false);
+    drawTracks_ = this->declare_parameter<bool>("show_tracks", true);
   }
 
 private:
