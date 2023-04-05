@@ -70,6 +70,7 @@ void VIOBackEnd::publishingThread()
       RCLCPP_INFO(node_->get_logger(), "exiting!");
       break;
     }
+    RCLCPP_INFO(node_->get_logger(), "the odometry published :S");
     publisher_->publish(data);
   }
 }
