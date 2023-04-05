@@ -39,8 +39,10 @@ public:
   {
     sync_ = std::make_shared<Sync>(10);
     const auto qos = rmw_qos_profile_default;
+    const auto qos_profile_sensor_profile = rmw_qos_profile_sensor_data;
+
     imageSub_ = std::make_shared<message_filters::Subscriber<Image>>(
-      this, "left_image", qos);
+      this, "left_image", rmw_qos_profile_default);
     flowSub_ = std::make_shared<message_filters::Subscriber<OptFlow>>(
       this, "optical_flow", qos);
     imagePub_ = image_transport::create_publisher(this, "flow_image", qos);
