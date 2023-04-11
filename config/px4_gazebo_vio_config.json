@@ -22,7 +22,7 @@
         "config.vio_outlier_threshold": 3.0,
         "config.vio_filter_iteration": 4,
         "config.vio_max_iterations": 7,
-        "config.vio_enforce_realtime": false,
+        "config.vio_enforce_realtime": true,
         "config.vio_use_lm": true,
         "config.vio_lm_lambda_initial": 1e-4,
         "config.vio_lm_lambda_min": 1e-5,
