@@ -162,11 +162,11 @@ ament_target_dependencies(viz_flow_node ${ROS2_DEPENDENCIES})
 
 # --- realsense tools ---
 if(realsense2_FOUND)
-  add_executable(get_calibration src/get_calibration.cpp)
-  target_link_libraries(get_calibration basalt::basalt basalt::basalt_rs_t265
-    ${TBB_LIBRARIES} realsense2::realsense2)
-  install(TARGETS get_calibration
-    DESTINATION lib/${PROJECT_NAME})
+  #add_executable(get_calibration src/get_calibration.cpp)
+  #target_link_libraries(get_calibration basalt::basalt basalt::basalt_rs_t265
+  #  ${TBB_LIBRARIES} realsense2::realsense2)
+  #install(TARGETS get_calibration
+  #  DESTINATION lib/${PROJECT_NAME})
 endif()
 
 # the shared libraries go into the global lib dir so it can
