@@ -65,9 +65,13 @@ void VIOBackEnd::publishingThread()
 {
   BasaltPoseVelBiasState::Ptr data;
   for (;;) {
-    RCLCPP_INFO(node_->get_logger(), "size of the queue %d", outputQueue_.size());
+    RCLCPP_INFO(
+      node_->get_logger(), "size of the queue %d", outputQueue_.size());
     outputQueue_.pop(data);
+    RCLCPP_INFO(node_->get_logger(), "data has been popped");
+
     if (!data.get()) {
+      RCLCPP_INFO(node_->get_logger(), "Are we really exiting!");
       RCLCPP_INFO(node_->get_logger(), "exiting!");
       break;
     }
