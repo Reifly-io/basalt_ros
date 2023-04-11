@@ -58,7 +58,9 @@ void OpticalFlowSubscriber::callback(const OpticalFlowMsgConstPtr msg)
         node_->get_logger(),
         "optical flow data dropped due to overflow: q_len = "
           << queue_->size());
-      queue_->pop();
+      basalt::OpticalFlowResult::Ptr trash_data(new basalt::OpticalFlowResult());
+
+      queue_->pop(trash_data);
     }
     max_q_ = std::max(queue_->size(), max_q_);
   }
