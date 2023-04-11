@@ -34,6 +34,7 @@ void OpticalFlowSubscriber::callback(const OpticalFlowMsgConstPtr msg)
   if (!queue_) {
     return;
   }
+
   basalt::OpticalFlowResult::Ptr data(new basalt::OpticalFlowResult());
 
   data->t_ns = msg->header.stamp.sec * 1000000000LL + msg->header.stamp.nanosec;
@@ -50,12 +51,14 @@ void OpticalFlowSubscriber::callback(const OpticalFlowMsgConstPtr msg)
       }
     }
   }
+
   if (queue_) {
     if (!queue_->try_push(data)) {
       RCLCPP_WARN_STREAM(
         node_->get_logger(),
         "optical flow data dropped due to overflow: q_len = "
           << queue_->size());
+      queue_->pop();
     }
     max_q_ = std::max(queue_->size(), max_q_);
   }
