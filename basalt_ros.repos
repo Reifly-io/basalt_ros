@@ -1,7 +1,7 @@
 repositories:
   src/basalt_wrapper:
     type: git
-    url: https://github.com/berndpfrommer/basalt_wrapper.git
+    url: https://github.com/Reifly-io/basalt_jp_wrapper.git
     version: master
   src/basalt_vio_msgs:
     type: git
