@@ -2,7 +2,7 @@ repositories:
   src/basalt_wrapper:
     type: git
     url: https://github.com/Reifly-io/basalt_jp_wrapper.git
-    version: master
+    version: main
   src/basalt_vio_msgs:
     type: git
     url: https://github.com/berndpfrommer/basalt_vio_msgs.git
